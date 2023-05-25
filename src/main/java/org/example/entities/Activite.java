@@ -36,6 +36,13 @@ public class Activite {
         this.categorie = categorie;
     }
 
+    public Activite(String titre_activite, Date date_activite, int duree_activite, int niveau_difficulte) {
+        this.titre_activite = titre_activite;
+        this.date_activite = date_activite;
+        this.duree_activite = duree_activite;
+        this.niveau_difficulte = niveau_difficulte;
+    }
+
     // Getters et Setters
 
     public int getId_activite() {

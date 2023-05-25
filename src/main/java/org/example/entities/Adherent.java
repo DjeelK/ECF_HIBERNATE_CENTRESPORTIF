@@ -14,7 +14,7 @@ public class Adherent {
     private int Age_adherent;
     private String telephone_adherent;
     private String mail_adherent;
-    @OneToMany(mappedBy = "adherent", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "adherent", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Activite> activites;
 
     public Adherent() {

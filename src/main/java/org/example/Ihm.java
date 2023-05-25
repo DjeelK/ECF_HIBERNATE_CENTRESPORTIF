@@ -1,17 +1,24 @@
 package org.example;
 
+import org.example.entities.Activite;
 import org.example.entities.Adherent;
+import org.example.services.ActiviteService;
 import org.example.services.AdherentService;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 import java.util.Scanner;
 
 public class Ihm {
     private AdherentService adherentService;
 
+    private ActiviteService activiteService;
     private Scanner scanner;
 
     public Ihm() {
         adherentService = new AdherentService();
+        activiteService = new ActiviteService();
 
         scanner = new Scanner(System.in);
     }
@@ -32,8 +39,10 @@ public class Ihm {
                     deleteAdherent();
                     break;
                 case "4":
+                    addActivite();
                     break;
                 case "5":
+                    deleteActivite();
                     break;
                 case "6":
                     break;
@@ -44,8 +53,10 @@ public class Ihm {
                 case "9":
                     break;
                 case "10":
+                    displayAllAdherents ();
                     break;
-
+                case "11" :
+                    adherentById();
             }
         } while(!choix.equals("0"));
     }
@@ -56,12 +67,12 @@ public class Ihm {
         System.out.println("2-- Modifier un adhérent par id ");
         System.out.println("3-- Supprimer un adhérent par id ");
         System.out.println("4-- Créer une activité");
-        System.out.println("5-- Modifier une activité par id");
-        System.out.println("6-- Supprimer une activité par id");
-        System.out.println("7-- Ajouter une activité à un adhérent");
-        System.out.println("8-- Supprimer une activité à un adhérent");
-        System.out.println("9-- Ajouter une catégorie à une activité");
-        System.out.println("10-- Afficher la liste des adhérents");
+        System.out.println("5-- Supprimer une activité par id");
+        System.out.println("6-- Ajouter une activité à un adhérent");
+        System.out.println("7-- Supprimer une activité à un adhérent");
+        System.out.println("8-- Ajouter une catégorie à une activité");
+        System.out.println("9-- Afficher la liste des adhérents");
+        System.out.println("10-- Afficher un adhérent");
         System.out.println("0-- Quitter");
     }
 
@@ -137,5 +148,45 @@ public class Ihm {
 
     }
 
+    // Affichage des adhérents
+
+    private void displayAllAdherents () {
+        List<Adherent> adherents = adherentService.findAll();
+        for (Adherent ad: adherents) {
+            System.out.println(ad);
+            System.out.println(ad.toString());
+        }
+    }
+
+    // Création d'une activité
+
+    private void addActivite() {
+        System.out.println("Merci de saisir le titre de l'activité");
+        String titre = scanner.nextLine();
+        System.out.println("Merci de saisir la date de l'activité (dd/MM/yyyy) : ");
+        String date_activite = scanner.nextLine();
+        System.out.println("Merci de saisir la durée de l'activité (en mn)");
+        int duree = scanner.nextInt();
+        scanner.nextLine();
+        System.out.println("Merci de saisir le niveau de difficulté de 1 à 3");
+        int difficulte = scanner.nextInt();
+        scanner.nextLine();
+        try {
+            Date date = new SimpleDateFormat("dd/MM/yyyy").parse(date_activite);
+            activiteService.create(new Activite(titre,date,duree,difficulte));
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    // Supression d'une activité
+
+    private void deleteActivite(){
+        System.out.println("Merci de saisir l'id de l'activité à supprimer");
+        int id = scanner.nextInt();
+        scanner.nextLine();
+        Activite a = activiteService.findById(id);
+        activiteService.delete(a);
+    }
 
 }
