@@ -28,6 +28,7 @@ public class Ihm {
                 case "2":
                     break;
                 case "3":
+                    deleteAdherent();
                     break;
                 case "4":
                     break;
@@ -65,7 +66,7 @@ public class Ihm {
 
     // Création d'un adhérent
 
-    private  void addAdherent() {
+    private void addAdherent() {
         System.out.println("Merci de saisir le nom de l'adhérent");
         String nom = scanner.nextLine();
         System.out.println("Merci de saisir le prénom de l'adhérent");
@@ -82,6 +83,24 @@ public class Ihm {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    // Adhérent par id
+
+    private void adherentById(){
+        System.out.println("Merci de saisir l'id de l'adhérent");
+        int id = scanner.nextInt();
+        scanner.nextLine();
+        Adherent a = adherentService.findById(id);
+        System.out.println(a);
+    }
+
+    private void deleteAdherent(){
+        System.out.println("Merci de saisir l'id de l'adhérent à supprimer");
+        int id = scanner.nextInt();
+        scanner.nextLine();
+        Adherent a = adherentService.findById(id);
+        adherentService.delete(a);
     }
 
 }
