@@ -55,4 +55,14 @@ public class ActiviteService extends BaseService implements Repository<Activite>
         session.close();
         return activiteList;
     }
+
+    public void addAdherentToActivite(Adherent adherent,Activite activite){
+        session = sessionFactory.openSession();
+        session.beginTransaction();
+        activite.setAdherent(adherent);
+        adherent.getActivites().add(activite);
+        session.saveOrUpdate(adherent);
+        session.getTransaction().commit();
+        session.close();
+    }
 }

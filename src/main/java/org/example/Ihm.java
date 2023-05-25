@@ -45,15 +45,17 @@ public class Ihm {
                     deleteActivite();
                     break;
                 case "6":
+                    displayAllAdherents();
                     break;
                 case "7":
+                    AddAdherentToActivite();
                     break;
                 case "8":
                     break;
                 case "9":
                     break;
                 case "10":
-                    displayAllAdherents ();
+
                     break;
                 case "11" :
                     adherentById();
@@ -68,11 +70,10 @@ public class Ihm {
         System.out.println("3-- Supprimer un adhérent par id ");
         System.out.println("4-- Créer une activité");
         System.out.println("5-- Supprimer une activité par id");
-        System.out.println("6-- Ajouter une activité à un adhérent");
-        System.out.println("7-- Supprimer une activité à un adhérent");
+        System.out.println("6-- Afficher la liste des adhérents");
+        System.out.println("7-- Ajouter une activité à un adhérent");
         System.out.println("8-- Ajouter une catégorie à une activité");
-        System.out.println("9-- Afficher la liste des adhérents");
-        System.out.println("10-- Afficher un adhérent");
+        System.out.println("9-- Afficher un adhérent");
         System.out.println("0-- Quitter");
     }
 
@@ -100,6 +101,7 @@ public class Ihm {
     // Adhérent par id
 
     private void adherentById(){
+        scanner.nextLine();
         System.out.println("Merci de saisir l'id de l'adhérent");
         int id = scanner.nextInt();
         scanner.nextLine();
@@ -189,4 +191,27 @@ public class Ihm {
         activiteService.delete(a);
     }
 
+    // Ajouter une activité à un adhérent
+
+    public void AddAdherentToActivite() {
+        System.out.println("Entrez l'id de l'adhérent");
+        int id_adherent = scanner.nextInt();
+        scanner.nextLine();
+        System.out.println("Entrez l'id de l'activité");
+        int id_activite = scanner.nextInt();
+        scanner.nextLine();
+
+        AdherentService adherentService = new AdherentService();
+        ActiviteService activiteService = new ActiviteService();
+
+        Adherent adherent = adherentService.findById(id_adherent);
+        Activite activite = activiteService.findById(id_activite);
+
+        if (adherent != null && activite != null) {
+            activiteService.addAdherentToActivite(adherent, activite);
+            System.out.println("L'activité a été ajoutée à l'adhérent avec succès.");
+        } else {
+            System.out.println("L'adhérent ou l'activité n'existe pas.");
+        }
+    }
 }
