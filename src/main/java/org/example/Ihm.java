@@ -26,6 +26,7 @@ public class Ihm {
                     addAdherent();
                     break;
                 case "2":
+                    updateAdherent();
                     break;
                 case "3":
                     deleteAdherent();
@@ -95,6 +96,8 @@ public class Ihm {
         System.out.println(a);
     }
 
+    // Suppression d'un adhérent pour id
+
     private void deleteAdherent(){
         System.out.println("Merci de saisir l'id de l'adhérent à supprimer");
         int id = scanner.nextInt();
@@ -102,5 +105,37 @@ public class Ihm {
         Adherent a = adherentService.findById(id);
         adherentService.delete(a);
     }
+
+    // Modification d'un adhérent par id
+
+    private void updateAdherent(){
+        System.out.println("Merci de saisir l'id de l'adhérent à modifier");
+        int id = scanner.nextInt();
+        scanner.nextLine();
+        Adherent a = adherentService.findById(id);
+        System.out.println("Merci de saisir le nom");
+        String nom = scanner.nextLine();
+        a.setNom_adherent(nom);
+        System.out.println("Merci de saisir le prénom");
+        String prenom = scanner.nextLine();
+        a.setPrenom_adherent(prenom);
+        System.out.println("Merci de saisir l'âge");
+        int age = scanner.nextInt();
+        scanner.nextLine();
+        a.setAge_adherent(age);
+        System.out.println("Merci de saisir le téléphone");
+        String telephone = scanner.nextLine();
+        a.setTelephone_adherent(telephone);
+        System.out.println("Merci de saisir l'adresse mail");
+        String mail = scanner.nextLine();
+        a.setMail_adherent(mail);
+        try {
+            adherentService.update(a);
+        }catch(Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+    }
+
 
 }
