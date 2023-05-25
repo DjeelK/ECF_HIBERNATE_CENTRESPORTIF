@@ -21,6 +21,9 @@ public class Categorie {
         this.activite = activite;
     }
 
+    public Categorie(String titre_categorie) {
+        this.titre_categorie = titre_categorie;
+    }
     //Getters et Setters
 
     public int getId_categorie() {

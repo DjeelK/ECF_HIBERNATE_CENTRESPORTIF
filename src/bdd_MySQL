@@ -14,9 +14,6 @@ CREATE TABLE `activite` (
 CREATE TABLE `adherent` (
   `id_adherent` int NOT NULL,
   `Age_adherent` int NOT NULL,
-  `codePostal` int NOT NULL,
-  `pays` varchar(255) DEFAULT NULL,
-  `ville` varchar(255) DEFAULT NULL,
   `mail_adherent` varchar(255) DEFAULT NULL,
   `nom_adherent` varchar(255) DEFAULT NULL,
   `prenom_adherent` varchar(255) DEFAULT NULL,
@@ -29,5 +26,3 @@ CREATE TABLE `categorie` (
   `titre_categorie` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id_categorie`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
-
-

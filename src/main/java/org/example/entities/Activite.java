@@ -2,7 +2,6 @@ package org.example.entities;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
 
 @Entity
 public class Activite {

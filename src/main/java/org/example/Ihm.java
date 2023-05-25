@@ -2,8 +2,10 @@ package org.example;
 
 import org.example.entities.Activite;
 import org.example.entities.Adherent;
+import org.example.entities.Categorie;
 import org.example.services.ActiviteService;
 import org.example.services.AdherentService;
+import org.example.services.CategorieService;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -12,13 +14,14 @@ import java.util.Scanner;
 
 public class Ihm {
     private AdherentService adherentService;
-
     private ActiviteService activiteService;
+    private CategorieService categorieService;
     private Scanner scanner;
 
     public Ihm() {
         adherentService = new AdherentService();
         activiteService = new ActiviteService();
+        categorieService = new CategorieService();
 
         scanner = new Scanner(System.in);
     }
@@ -45,20 +48,23 @@ public class Ihm {
                     deleteActivite();
                     break;
                 case "6":
-                    displayAllAdherents();
+                    addCategorie();
                     break;
                 case "7":
-                    AddAdherentToActivite();
+                    deleteCategorie();
                     break;
                 case "8":
+                    AddAdherentToActivite();
                     break;
                 case "9":
+                    AddActiviteToCategorie();
                     break;
                 case "10":
-
-                    break;
-                case "11" :
                     adherentById();
+                    break;
+                case "11":
+                    displayAllAdherents();
+                    break;
             }
         } while(!choix.equals("0"));
     }
@@ -66,17 +72,18 @@ public class Ihm {
     private void menu() {
         System.out.println("########  Menu du Centre Sportif UTOPIOS (CSU) #########");
         System.out.println("1-- Créer un adhérent");
-        System.out.println("2-- Modifier un adhérent par id ");
-        System.out.println("3-- Supprimer un adhérent par id ");
+        System.out.println("2-- Modifier un adhérent par id");
+        System.out.println("3-- Supprimer un adhérent par id");
         System.out.println("4-- Créer une activité");
         System.out.println("5-- Supprimer une activité par id");
-        System.out.println("6-- Afficher la liste des adhérents");
-        System.out.println("7-- Ajouter une activité à un adhérent");
-        System.out.println("8-- Ajouter une catégorie à une activité");
-        System.out.println("9-- Afficher un adhérent");
+        System.out.println("6-- Créer une catégorie");
+        System.out.println("7-- Supprimer une catégorie par l'id");
+        System.out.println("8-- Ajouter une activité à un adhérent");
+        System.out.println("9-- Ajouter une catégorie à une activité");
+        System.out.println("10-- Afficher un adhérent");
+        System.out.println("11-- Afficher la liste des adhérents");
         System.out.println("0-- Quitter");
     }
-
     // Création d'un adhérent
 
     private void addAdherent() {
@@ -214,4 +221,59 @@ public class Ihm {
             System.out.println("L'adhérent ou l'activité n'existe pas.");
         }
     }
+
+    // Création d'une catégorie
+
+    private void addCategorie() {
+        System.out.println("Merci de saisir le titre de la catégorie");
+        String titre = scanner.nextLine();
+        try {
+            categorieService.create(new Categorie(titre));
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private void categorieById(){
+        scanner.nextLine();
+        System.out.println("Merci de saisir l'id de la catégorie");
+        int id = scanner.nextInt();
+        scanner.nextLine();
+        Categorie c = categorieService.findById(id);
+        System.out.println(c);
+    }
+    // Suppression d'une catégorie
+
+    private void deleteCategorie(){
+        System.out.println("Merci de saisir l'id de la catégorie à supprimer");
+        int id = scanner.nextInt();
+        scanner.nextLine();
+        Categorie c = categorieService.findById(id);
+        categorieService.delete(c);
+    }
+
+    // Ajouter une catégorie à une activité
+
+    public void AddActiviteToCategorie() {
+        System.out.println("Entrez l'id de l'activité");
+        int id_activite = scanner.nextInt();
+        scanner.nextLine();
+        System.out.println("Entrez l'id de la catégorie");
+        int id_categorie = scanner.nextInt();
+        scanner.nextLine();
+
+        ActiviteService activiteService = new ActiviteService();
+        CategorieService categorieService = new CategorieService();
+
+        Activite activite = activiteService.findById(id_activite);
+        Categorie categorie = categorieService.findById(id_categorie);
+
+        if (categorie != null && activite != null) {
+            categorieService.addCategorieToActivite(id_activite,id_categorie);
+            System.out.println("L'activité a été ajoutée à la catégorie avec succès.");
+        } else {
+            System.out.println("La catégorie ou l'activité n'existe pas.");
+        }
+    }
+
 }
