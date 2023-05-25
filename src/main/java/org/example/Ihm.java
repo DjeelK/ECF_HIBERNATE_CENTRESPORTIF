@@ -63,7 +63,10 @@ public class Ihm {
                     adherentById();
                     break;
                 case "11":
-                    displayAllAdherents();
+                    displayAllAdherent();
+                    break;
+                case "12":
+                    displayAllAdherentsWithActivite();
                     break;
                 case "0":
                     System.out.println("Au revoir !");
@@ -88,6 +91,8 @@ public class Ihm {
         System.out.println("9-- Ajouter une catégorie à une activité");
         System.out.println("10-- Afficher un adhérent par id");
         System.out.println("11-- Afficher la liste des adhérents");
+        System.out.println("12-- Afficher la liste des adhérents avec activités");
+
         System.out.println("0-- Quitter");
     }
     // Création d'un adhérent
@@ -164,7 +169,18 @@ public class Ihm {
 
     // Affichage des adhérents
 
-    private void displayAllAdherents () {
+    private void displayAllAdherent () {
+        List<Adherent> adherents = adherentService.findAll();
+        for(Adherent ad: adherents) {
+            System.out.println(ad.getNom_adherent() + " "+
+                    ad.getPrenom_adherent() + " " +
+                    ad.getAge_adherent() + " " +
+                    ad.getTelephone_adherent() + " "+
+                    ad.getMail_adherent());
+        }
+    }
+
+    private void displayAllAdherentsWithActivite () {
         List<Adherent> adherents = adherentService.findAll();
         for (Adherent ad: adherents) {
             if (ad.getActivites().size() > 0) {
@@ -180,7 +196,6 @@ public class Ihm {
                     ad.getAge_adherent() + " " +
                     ad.getTelephone_adherent() + " "+
                     ad.getMail_adherent());
-
         }
     }
 
