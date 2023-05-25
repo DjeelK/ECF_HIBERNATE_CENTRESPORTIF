@@ -26,7 +26,7 @@ public class Ihm {
         scanner = new Scanner(System.in);
     }
 
-    public void start(){
+    public void start() {
         String choix;
         do {
             menu();
@@ -54,10 +54,10 @@ public class Ihm {
                     deleteCategorie();
                     break;
                 case "8":
-                    AddAdherentToActivite();
+                    addAdherentToActivite();
                     break;
                 case "9":
-                    AddActiviteToCategorie();
+                    addActiviteToCategorie();
                     break;
                 case "10":
                     adherentById();
@@ -65,8 +65,14 @@ public class Ihm {
                 case "11":
                     displayAllAdherents();
                     break;
+                case "0":
+                    System.out.println("Au revoir !");
+                    break;
+                default:
+                    System.out.println("Choix invalide. Veuillez réessayer.");
+                    break;
             }
-        } while(!choix.equals("0"));
+        } while (!choix.equals("0"));
     }
 
     private void menu() {
@@ -80,7 +86,7 @@ public class Ihm {
         System.out.println("7-- Supprimer une catégorie par l'id");
         System.out.println("8-- Ajouter une activité à un adhérent");
         System.out.println("9-- Ajouter une catégorie à une activité");
-        System.out.println("10-- Afficher un adhérent");
+        System.out.println("10-- Afficher un adhérent par id");
         System.out.println("11-- Afficher la liste des adhérents");
         System.out.println("0-- Quitter");
     }
@@ -108,12 +114,11 @@ public class Ihm {
     // Adhérent par id
 
     private void adherentById(){
-        scanner.nextLine();
         System.out.println("Merci de saisir l'id de l'adhérent");
         int id = scanner.nextInt();
         scanner.nextLine();
         Adherent a = adherentService.findById(id);
-        System.out.println(a);
+        System.out.println(a.getPrenom_adherent());
     }
 
     // Suppression d'un adhérent pour id
@@ -162,8 +167,20 @@ public class Ihm {
     private void displayAllAdherents () {
         List<Adherent> adherents = adherentService.findAll();
         for (Adherent ad: adherents) {
-            System.out.println(ad);
-            System.out.println(ad.toString());
+            if (ad.getActivites().size() > 0) {
+                for(Activite ac: ad.getActivites()) {
+                    System.out.println(ac.getTitre_activite() + " " +
+                            ac.getDate_activite() + " "+
+                            ac.getDuree_activite() + " "+
+                            ac.getNiveau_difficulte());
+                }
+            }
+            System.out.println(ad.getNom_adherent() + " "+
+                    ad.getPrenom_adherent() + " " +
+                    ad.getAge_adherent() + " " +
+                    ad.getTelephone_adherent() + " "+
+                    ad.getMail_adherent());
+
         }
     }
 
@@ -200,7 +217,7 @@ public class Ihm {
 
     // Ajouter une activité à un adhérent
 
-    public void AddAdherentToActivite() {
+    public void addAdherentToActivite() {
         System.out.println("Entrez l'id de l'adhérent");
         int id_adherent = scanner.nextInt();
         scanner.nextLine();
@@ -254,7 +271,7 @@ public class Ihm {
 
     // Ajouter une catégorie à une activité
 
-    public void AddActiviteToCategorie() {
+    public void addActiviteToCategorie() {
         System.out.println("Entrez l'id de l'activité");
         int id_activite = scanner.nextInt();
         scanner.nextLine();
