@@ -1,0 +1,33 @@
+CREATE TABLE `activite` (
+  `id_activite` int NOT NULL,
+  `date_activite` date DEFAULT NULL,
+  `duree_activite` int NOT NULL,
+  `niveau_difficulte` int NOT NULL,
+  `titre_activite` varchar(255) DEFAULT NULL,
+  `adherent_id` int DEFAULT NULL,
+  `categorie_id` int DEFAULT NULL,
+  PRIMARY KEY (`id_activite`),
+  KEY `FKe63k0yc7rt8bit55bmr5duv30` (`adherent_id`),
+  KEY `FKfq6u7i4xeumxveqhtvu43eob` (`categorie_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+
+CREATE TABLE `adherent` (
+  `id_adherent` int NOT NULL,
+  `Age_adherent` int NOT NULL,
+  `codePostal` int NOT NULL,
+  `pays` varchar(255) DEFAULT NULL,
+  `ville` varchar(255) DEFAULT NULL,
+  `mail_adherent` varchar(255) DEFAULT NULL,
+  `nom_adherent` varchar(255) DEFAULT NULL,
+  `prenom_adherent` varchar(255) DEFAULT NULL,
+  `telephone_adherent` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id_adherent`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+
+CREATE TABLE `categorie` (
+  `id_categorie` int NOT NULL,
+  `titre_categorie` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id_categorie`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+
+
