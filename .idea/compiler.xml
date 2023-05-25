@@ -6,8 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="ecf_hibernate_centreSportif" />
+        <module name="cours_hibernate" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="ecf_hibernate_centreSportif" target="11" />
+    </bytecodeTargetLevel>
   </component>
 </project>
