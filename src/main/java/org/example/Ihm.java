@@ -1,5 +1,6 @@
 package org.example;
 
+import org.example.entities.Adherent;
 import org.example.services.AdherentService;
 
 import java.util.Scanner;
@@ -22,6 +23,7 @@ public class Ihm {
             choix = scanner.nextLine();
             switch (choix) {
                 case "1":
+                    addAdherent();
                     break;
                 case "2":
                     break;
@@ -60,4 +62,26 @@ public class Ihm {
         System.out.println("10-- Afficher la liste des adhérents");
         System.out.println("0-- Quitter");
     }
+
+    // Création d'un adhérent
+
+    private  void addAdherent() {
+        System.out.println("Merci de saisir le nom de l'adhérent");
+        String nom = scanner.nextLine();
+        System.out.println("Merci de saisir le prénom de l'adhérent");
+        String prenom = scanner.nextLine();
+        System.out.println("Merci de saisir l'âge de l'adhérent");
+        int age = scanner.nextInt();
+        scanner.nextLine();
+        System.out.println("Merci de saisir votre téléphone");
+        String telephone = scanner.nextLine();
+        System.out.println("Merci de saisir le mail de l'adhérent");
+        String mail = scanner.nextLine();
+        try {
+            adherentService.create(new Adherent(nom,prenom,age,telephone,mail));
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
 }

@@ -12,8 +12,6 @@ public class Adherent {
     private String nom_adherent;
     private String prenom_adherent;
     private int Age_adherent;
-    @Embedded
-    private Adresse adresse;
     private String telephone_adherent;
     private String mail_adherent;
     @OneToMany(mappedBy = "adherent", cascade = CascadeType.ALL)
@@ -22,14 +20,21 @@ public class Adherent {
     public Adherent() {
     }
 
-    public Adherent(String nom_adherent, String prenom_adherent, int age_adherent, Adresse adresse, String telephone_adherent, String mail_adherent, List<Activite> activites) {
+    public Adherent(String nom_adherent, String prenom_adherent, int age_adherent, String telephone_adherent, String mail_adherent, List<Activite> activites) {
         this.nom_adherent = nom_adherent;
         this.prenom_adherent = prenom_adherent;
         Age_adherent = age_adherent;
-        this.adresse = adresse;
         this.telephone_adherent = telephone_adherent;
         this.mail_adherent = mail_adherent;
         this.activites = activites;
+    }
+
+    public Adherent(String nom_adherent, String prenom_adherent, int age_adherent, String telephone_adherent, String mail_adherent) {
+        this.nom_adherent = nom_adherent;
+        this.prenom_adherent = prenom_adherent;
+        Age_adherent = age_adherent;
+        this.telephone_adherent = telephone_adherent;
+        this.mail_adherent = mail_adherent;
     }
     // Getters et Setters
 
@@ -65,14 +70,6 @@ public class Adherent {
         Age_adherent = age_adherent;
     }
 
-    public Adresse getAdresse() {
-        return adresse;
-    }
-
-    public void setAdresse(Adresse adresse) {
-        this.adresse = adresse;
-    }
-
     public String getTelephone_adherent() {
         return telephone_adherent;
     }
@@ -97,9 +94,7 @@ public class Adherent {
         this.activites = activites;
     }
 
-
     //ToString affichage console
-
 
     @Override
     public String toString() {
@@ -108,7 +103,6 @@ public class Adherent {
                 ", nom_adherent='" + nom_adherent + '\'' +
                 ", prenom_adherent='" + prenom_adherent + '\'' +
                 ", Age_adherent=" + Age_adherent +
-                ", adresse=" + adresse +
                 ", telephone_adherent='" + telephone_adherent + '\'' +
                 ", mail_adherent='" + mail_adherent + '\'' +
                 ", activites=" + activites +
